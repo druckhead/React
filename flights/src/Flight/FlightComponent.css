@@ -1,0 +1,15 @@
+.flightPathContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 2em;
+  margin: 0 3em;
+}
+
+.arrow-scale {
+  width: 4em;
+}
+
+.flightTitle {
+  text-align: center;
+}

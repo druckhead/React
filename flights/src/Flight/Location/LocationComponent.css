@@ -1,0 +1,27 @@
+.img-scale {
+  width: 80%;
+}
+.img-aspect {
+  aspect-ratio: 16/9;
+}
+
+.txt-lg {
+  font-size: xx-large;
+}
+
+.img-rounded {
+  border-radius: 1em;
+}
+
+.img-shadow {
+  box-shadow: .1em .1em .1em .1em;
+}
+
+.locationContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+}
