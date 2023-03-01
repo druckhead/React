@@ -4,10 +4,11 @@ import LikedItem from "./LikedItem";
 export default function LikedList(props) {
   const items = props.numbers.map((num) => (
     <LikedItem
-      key={num}
-      number={num}
-      onDelete={() => props.onDelete(num)}
-      onClick={() => props.onClick(num)}
+      key={num.number}
+      fact={num.factText}
+      number={num.number}
+      onClick={props.onClick}
+      onDelete={props.onDelete}
     />
   ));
 

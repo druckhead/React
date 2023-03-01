@@ -1,10 +1,10 @@
 import { Box, Button, LinearProgress, Stack } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
+import ActiveLikedFact from "./ActiveLikedFact";
 import FactWithLike from "./FactWithLike";
 
 import LikedList from "./LikedList";
-
 
 export default function NumbersFactsLiked(props) {
   console.log("Rendering NumbersFactsLiked with props", props);
@@ -15,41 +15,57 @@ export default function NumbersFactsLiked(props) {
   });
   const [likedNumbers, setLikedNumbers] = useState([]);
   const [lastLikedNumber, setLastLikedNumber] = useState(null);
+  const [activeFact, setActiveFact] = useState(null);
+  const [isActive, setIsActive] = useState(null);
 
   const getFact = () => {
-    // set loading to true
-    // important to update the whole objects, not parts of it!
-    // DON'T DO THIS:
-    // factData.loading = true
-    // or this:
-    // setFactData({loading: true})
     setFactData({ ...factData, loading: true });
-
+    setLastLikedNumber(null);
     axios.get("http://numbersapi.com/random/math").then((responseData) => {
       console.log("Received a new fact:", responseData);
-
       setFactData({
         text: responseData.data,
         loading: false,
       });
-      setLastLikedNumber(null);
     });
   };
 
   const handleLikedNumber = (number) => {
-    // updating an array - need to create a copy and add anew element to it
-    // make sure not to mutate the array, but to copy one!
-    const newArray = [...likedNumbers, number];
+    const newArray = [
+      ...likedNumbers,
+      { number: number, factText: factData.text },
+    ];
     setLikedNumbers(newArray);
     setLastLikedNumber(number);
   };
 
-  const handleDeleteLikedNumber = (number) => {
-    console.log("clicked delete on item " + number);
-    const likedList = likedNumbers.slice();
-    const index = likedList.indexOf(number);
-    likedList.splice(index, 1);
-    setLikedNumbers(likedList);
+  const onLikeClicked = (number, selected) => {
+    console.log("Clicked liked fact #" + number);
+    console.log("fact: " + selected.fact);
+    setActiveFact(selected.fact);
+    if (activeFact === null) {
+      setIsActive(true);
+    } else if (selected.fact !== activeFact) {
+      setActiveFact(selected.fact);
+    } else {
+      setIsActive(null);
+      setActiveFact(null);
+    }
+  };
+
+  const onDeleteClicked = (number, selected) => {
+    console.log("delete clicked #" + number);
+    if (lastLikedNumber === number) {
+      setLastLikedNumber(null);
+    }
+    const newArray = likedNumbers.slice();
+    const index = newArray.map((item) => item.number).indexOf(number);
+    newArray.splice(index, 1);
+    setLikedNumbers(newArray);
+    if (selected.fact === activeFact) {
+      setActiveFact(null);
+      setIsActive(null);
+    }
   };
 
   return (
@@ -67,18 +83,13 @@ export default function NumbersFactsLiked(props) {
           GET INTERESTING FACT!
         </Button>
       </Stack>
-
-      {/* {factData.loading &&
-                <LinearProgress />
-            } */}
-      {/* <LinearProgress style ={{visibility: factData.loading ? 'visible' : 'hidden' }}/> */}
       <LinearProgress hidden={!factData.loading} />
 
       {factData.text && (
         <FactWithLike
           factText={factData.text}
           onLikedNumber={handleLikedNumber}
-          isLiked={likedNumbers.includes(lastLikedNumber)}
+          isLastNumber={Boolean(lastLikedNumber)}
         />
       )}
 
@@ -88,12 +99,12 @@ export default function NumbersFactsLiked(props) {
           <h5>Numbers you liked:</h5>
           <LikedList
             numbers={likedNumbers}
-            text={factData.factText}
-            onDelete={handleDeleteLikedNumber}
+            onClick={onLikeClicked}
+            onDelete={onDeleteClicked}
           />
-          <hr />
         </Stack>
       )}
+      {isActive && activeFact && <p>{activeFact}</p>}
     </Box>
   );
 }

@@ -5,20 +5,39 @@ import Fact from "./Fact";
 
 export default function NumbersFacts(props) {
 
-    console.log("Rendering NumbersFacts with props", props)
+
 
     const [currFactText, setCurrFactText] = useState(null)
     const [loading, setLoading] = useState(false)
 
+    console.log("Rendering NumbersFacts with loading", loading)
+
+    // const [loading2, setLoading2] = useState(false)
+
+    // never update state inside render!!!!!
+    // if (currFactText && currFactText.length > 10) {
+    //     setCurrFactText(currFactText + 'aaa')
+    // }
+   
+
 
     const getFact = () => {
-        setLoading(true)
-        axios.get('http://numbersapi.com/random/math')
+        console.log("setting loading to true")
+        setLoading(true)  // react remembers to re-render
+        // fetch('http://numbersapi.com/random/math')
+        // .then(response => response.json())
+        // .then(json => console.log(json))
+
+
+        axios.get('http://numbersapi.com/random/math') // send request in a different thread and let me know when is ready
         .then((responseData) => {
             console.log('Received a new fact:', responseData)
+            console.log('setting loading to false')
             setLoading(false)
             setCurrFactText(responseData.data)
         })
+        .catch(error => console.log(error))
+        console.log("ended getFact function")
     }
 
     return(
@@ -42,6 +61,10 @@ export default function NumbersFacts(props) {
             {loading &&
                 <LinearProgress />
             }
+
+            {/* {loading2 &&
+                <LinearProgress />
+            } */}
 
             {! loading && currFactText &&
                 <Fact factText={currFactText}/>
