@@ -9,7 +9,7 @@ export default function LikedItem(props) {
       label={props.number}
       text={props.text}
       color="primary"
-      variant={props.number == 687 ? "contained" : "outlined"}
+      variant={"outlined"}
     />
   );
 }
