@@ -8,7 +8,8 @@ export default function FactWithLike(props) {
     return(
         <Stack direction="row" spacing={2} alignItems='center'>
             <p style={{margin: 0}}>{props.factText}</p>
-            <IconButton 
+            <IconButton
+                disabled={props.isLiked}
                 color="primary" variant="outlined"
                 onClick={() => props.onLikedNumber(Number(props.factText.split(' ')[0]))}>
                 <ThumbUpAltIcon />

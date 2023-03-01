@@ -42,9 +42,9 @@ export default function App() {
 
   // return <NumbersFactsObj />
 
-  // return <NumbersFactsLiked />
+  return <NumbersFactsLiked />
 
-  return <Coctails />
+  // return <Coctails />
 
 
 }
