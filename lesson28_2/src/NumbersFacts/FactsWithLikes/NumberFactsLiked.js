@@ -13,7 +13,7 @@ export default function NumbersFactsLiked(props) {
     loading: false,
   });
   const [likedNumbers, setLikedNumbers] = useState([]);
-  const [likedNumber, setLikedNumber] = useState(null);
+  const [currentNumber, setCurrentNumber] = useState(null);
 
   const getFact = () => {
     // set loading to true
@@ -23,7 +23,6 @@ export default function NumbersFactsLiked(props) {
     // or this:
     // setFactData({loading: true})
     setFactData({ ...factData, loading: true });
-    setLikedNumber(null);
 
     axios.get("http://numbersapi.com/random/math").then((responseData) => {
       console.log("Received a new fact:", responseData);
@@ -32,6 +31,7 @@ export default function NumbersFactsLiked(props) {
         text: responseData.data,
         loading: false,
       });
+      setCurrentNumber(null);
     });
   };
 
@@ -40,7 +40,19 @@ export default function NumbersFactsLiked(props) {
     // make sure not to mutate the array, but to copy one!
     const newArray = [...likedNumbers, number];
     setLikedNumbers(newArray);
-    setLikedNumber(number);
+    setCurrentNumber(number);
+  };
+
+  const handleClickedLikedNumber = (number) => {
+    console.log("clicked " + number);
+  };
+
+  const handleDeleteLikedNumber = (number) => {
+    console.log("clicked delete on item " + number);
+    const likedList = likedNumbers.slice();
+    const index = likedList.indexOf(number);
+    likedList.splice(index, 1);
+    setLikedNumbers(likedList);
   };
 
   return (
@@ -69,7 +81,7 @@ export default function NumbersFactsLiked(props) {
         <FactWithLike
           factText={factData.text}
           onLikedNumber={handleLikedNumber}
-          isLiked={likedNumbers.includes(likedNumber)}
+          isLiked={likedNumbers.includes(currentNumber)}
         />
       )}
 
@@ -77,7 +89,12 @@ export default function NumbersFactsLiked(props) {
         <Stack spacing={2} marginY="1em">
           <hr />
           <h5>Numbers you liked:</h5>
-          <LikedList numbers={likedNumbers} />
+          <LikedList
+            numbers={likedNumbers}
+            text={factData.factText}
+            onClick={handleClickedLikedNumber}
+            onDelete={handleDeleteLikedNumber}
+          />
         </Stack>
       )}
     </Box>
