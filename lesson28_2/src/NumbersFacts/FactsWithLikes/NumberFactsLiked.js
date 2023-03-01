@@ -4,6 +4,7 @@ import { useState } from "react";
 import FactWithLike from "./FactWithLike";
 
 import LikedList from "./LikedList";
+import SelectedFact from "./SelectedFact";
 
 export default function NumbersFactsLiked(props) {
   console.log("Rendering NumbersFactsLiked with props", props);
@@ -13,7 +14,8 @@ export default function NumbersFactsLiked(props) {
     loading: false,
   });
   const [likedNumbers, setLikedNumbers] = useState([]);
-  const [currentNumber, setCurrentNumber] = useState(null);
+  const [lastLikedNumber, setLastLikedNumber] = useState(null);
+  const [activeSelectedNumber, setActiveSelectedNumber] = useState(null);
 
   const getFact = () => {
     // set loading to true
@@ -31,7 +33,7 @@ export default function NumbersFactsLiked(props) {
         text: responseData.data,
         loading: false,
       });
-      setCurrentNumber(null);
+      setLastLikedNumber(null);
     });
   };
 
@@ -40,15 +42,23 @@ export default function NumbersFactsLiked(props) {
     // make sure not to mutate the array, but to copy one!
     const newArray = [...likedNumbers, number];
     setLikedNumbers(newArray);
-    setCurrentNumber(number);
+    setLastLikedNumber(number);
   };
 
   const handleClickedLikedNumber = (number) => {
     console.log("clicked " + number);
+    if (activeSelectedNumber) {
+      setActiveSelectedNumber(null);
+      return;
+    }
+    setActiveSelectedNumber(number);
   };
 
   const handleDeleteLikedNumber = (number) => {
     console.log("clicked delete on item " + number);
+    if (activeSelectedNumber) {
+      setActiveSelectedNumber(null);
+    }
     const likedList = likedNumbers.slice();
     const index = likedList.indexOf(number);
     likedList.splice(index, 1);
@@ -81,7 +91,7 @@ export default function NumbersFactsLiked(props) {
         <FactWithLike
           factText={factData.text}
           onLikedNumber={handleLikedNumber}
-          isLiked={likedNumbers.includes(currentNumber)}
+          isLiked={likedNumbers.includes(lastLikedNumber)}
         />
       )}
 
@@ -95,8 +105,10 @@ export default function NumbersFactsLiked(props) {
             onClick={handleClickedLikedNumber}
             onDelete={handleDeleteLikedNumber}
           />
+          <hr />
         </Stack>
       )}
+      {activeSelectedNumber && <SelectedFact />}
     </Box>
   );
 }

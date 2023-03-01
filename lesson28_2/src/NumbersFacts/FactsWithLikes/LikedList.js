@@ -6,7 +6,6 @@ export default function LikedList(props) {
     <LikedItem
       key={num}
       number={num}
-      text={props.factText}
       onDelete={() => props.onDelete(num)}
       onClick={() => props.onClick(num)}
     />
