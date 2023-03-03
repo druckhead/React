@@ -12,7 +12,7 @@ export default function ButtonAppBar() {
           <Typography
             variant="h6"
             component="div"
-            sx={{ display: "flex", flexGrow: 1, justifyContent: "center" }}
+            sx={{ display: "flex", flexGrow: 1, justifyContent: "center", fontSize: 2.4 + "em" }}
           >
             Cocktails
           </Typography>

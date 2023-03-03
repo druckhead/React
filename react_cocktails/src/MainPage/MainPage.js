@@ -40,6 +40,7 @@ function MainPage() {
   useEffect(() => {
     if (submittedQuery) {
       setIsLoading(true);
+      setCurrLetter(null);
       const endPoint = `search.php?s=${submittedQuery}`;
       const response = getCocktail(endPoint);
       response.then((response) => {
@@ -87,17 +88,20 @@ function MainPage() {
           flexDirection: "column",
           justifyItems: "center",
           alignItems: "center",
-          gap: 4 + "em",
+          fontSize: 2.4 + "em",
+          rowGap: 1 + "em",
         }}
       >
         <SearchBox
           value={query}
           query={query}
           setQuery={setQuery}
-        //   submittedQuery={submittedQuery}
           setSubmittedQuery={setSubmittedQuery}
         />
-        <AlphabetFilterBox clickHandler={handleClickLetter} />
+        <AlphabetFilterBox
+          clickHandler={handleClickLetter}
+          isActive={currLetter}
+        />
 
         {isLoading && <CircularIndeterminate />}
 

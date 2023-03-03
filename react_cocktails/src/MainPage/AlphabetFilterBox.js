@@ -5,7 +5,10 @@ function AlphabetFilterBox(props) {
   return (
     <Box>
       <p>Or select by first letter:</p>
-      <AlphabetList clickHandler={props.clickHandler} />
+      <AlphabetList
+        clickHandler={props.clickHandler}
+        isActive={props.isActive}
+      />
     </Box>
   );
 }
@@ -14,7 +17,12 @@ function AlphabetList(props) {
   const alpha = Array.from(Array(26)).map((e, i) => i + 65);
   const alphabet = alpha.map((x) => String.fromCharCode(x));
   const letters = alphabet.map((elem) => (
-    <AlphaLetter key={elem} letter={elem} clickHandler={props.clickHandler} />
+    <AlphaLetter
+      key={elem}
+      letter={elem}
+      clickHandler={props.clickHandler}
+      isActive={props.isActive}
+    />
   ));
   return <Grid>{letters}</Grid>;
 }
@@ -22,6 +30,8 @@ function AlphabetList(props) {
 function AlphaLetter(props) {
   return (
     <Button
+      disabled={props.isActive === props.letter}
+      style={props.isActive === props.letter ? { border: "1px solid" } : {}}
       onClick={() => props.clickHandler(props.letter)}
       variant="text"
       sx={{ p: 0.25 + "em", minWidth: 0, minHeight: 0 }}

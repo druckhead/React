@@ -9,8 +9,22 @@ function renderRow(props) {
   const { index, data, style } = props;
 
   return (
-    <ListItem style={style} key={index} component="div" disablePadding>
-      <ListItemButton>
+    <ListItem
+      style={style}
+      key={index}
+      component="div"
+      disablePadding
+      sx={{
+        "&:hover": {
+          boxShadow: 10,
+        },
+      }}
+    >
+      <ListItemButton
+        sx={{
+          textAlign: "center",
+        }}
+      >
         <ListItemText primary={`${index + 1}. ${data[index]}`} />
       </ListItemButton>
     </ListItem>
@@ -27,6 +41,8 @@ export default function CocktailsList(props) {
         height: 400,
         maxWidth: 360,
         bgcolor: "background.paper",
+        border: "1px solid lightgray",
+        boxShadow: 5,
       }}
     >
       <FixedSizeList
