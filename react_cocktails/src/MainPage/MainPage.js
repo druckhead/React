@@ -127,7 +127,7 @@ function MainPage() {
             flexDirection: "column",
             justifyItems: "center",
             alignItems: "center",
-            rowGap: 0 + "em",
+            rowGap: 2 + "em",
           }}
         >
           <SearchBox
