@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import React, { useEffect, useState } from "react";
 import AlphabetFilterBox from "./AlphabetFilterBox";
 import CocktailsList from "./CocktailsList";
-import ButtonAppBar from "./Navbar";
 import SearchBox from "./SearchBox";
 import axios from "axios";
 import CircularIndeterminate from "./CircularIndeterminate";
@@ -114,7 +113,6 @@ function MainPage() {
         gap: 1 + "em",
       }}
     >
-      <ButtonAppBar />
       <Container
         sx={{
           display: "flex",
