@@ -128,7 +128,7 @@ function MainPage() {
             justifyItems: "center",
             alignItems: "center",
             fontSize: 2.4 + "em",
-            rowGap: 1 + "em",
+            rowGap: 0 + "em",
           }}
         >
           <SearchBox
