@@ -22,18 +22,24 @@ function MainPage() {
       setIsLoading(true);
       const endPoint = `search.php?f=${currLetter}`;
       const response = getCocktail(endPoint);
-      response.then((response) => {
-        console.log(response);
-        const drinks = response.data.drinks;
-        console.log(drinks);
-        setIsLoading(false);
-        if (!drinks) {
-          console.log(`drinks is null`);
+      response
+        .then((response) => {
+          console.log(response);
+          const drinks = response.data.drinks;
+          console.log(drinks);
+          setIsLoading(false);
+          if (!drinks) {
+            console.log(`drinks is null`);
+            setShowErrorMsg(true);
+            return;
+          }
+          setCurrDrinks(drinks);
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
           setShowErrorMsg(true);
-          return;
-        }
-        setCurrDrinks(drinks);
-      });
+        });
     }
   }, [currLetter]);
 
@@ -128,6 +134,7 @@ async function getCocktail(endPoint) {
     return response;
   } catch (error) {
     console.error(error);
+    return null;
   }
 }
 
