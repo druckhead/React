@@ -3,15 +3,18 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 
 export default function ErrorAlert(props) {
-  const { letter, showErrorMsg, setShowErrorMsg } = props;
+  const { errorMsg, showErrorMsg, setErrorMsg } = props;
 
   useEffect(() => {
     const timer = setTimeout(() => {
       console.log("should be removed");
-      setShowErrorMsg(false);
+      setErrorMsg({
+        errorMsg: "",
+        showErrorMsg: false,
+      });
     }, 1000 * 5);
     return () => clearTimeout(timer);
-  }, [showErrorMsg, setShowErrorMsg]);
+  }, [showErrorMsg, setErrorMsg]);
 
   if (!showErrorMsg) {
     return null;
@@ -21,7 +24,7 @@ export default function ErrorAlert(props) {
       <AlertTitle>
         <strong>Error</strong>
       </AlertTitle>
-      No cocktails found for letter '{letter}'
+      {errorMsg}
     </Alert>
   );
 }

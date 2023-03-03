@@ -13,7 +13,10 @@ function MainPage() {
   const [currLetter, setCurrLetter] = useState(null);
   const [currDrinks, setCurrDrinks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [showErrorMsg, setShowErrorMsg] = useState(false);
+  const [errorMsg, setErrorMsg] = useState({
+    errorMsg: "",
+    showErrorMsg: false,
+  });
   const [query, setQuery] = useState("");
   const [submittedQuery, setSubmittedQuery] = useState("");
 
@@ -30,7 +33,10 @@ function MainPage() {
           setIsLoading(false);
           if (!drinks) {
             console.log(`drinks is null`);
-            setShowErrorMsg(true);
+            setErrorMsg({
+              errorMsg: `Can't find cocktails for letter "${currLetter}"`,
+              showErrorMsg: true,
+            });
             return;
           }
           setCurrDrinks(drinks);
@@ -38,7 +44,10 @@ function MainPage() {
         .catch((error) => {
           console.log(error);
           setIsLoading(false);
-          setShowErrorMsg(true);
+          setErrorMsg({
+            errorMsg: `Network Error: No Internet Connection`,
+            showErrorMsg: true,
+          });
         });
     }
   }, [currLetter]);
@@ -49,18 +58,30 @@ function MainPage() {
       setCurrLetter(null);
       const endPoint = `search.php?s=${submittedQuery}`;
       const response = getCocktail(endPoint);
-      response.then((response) => {
-        console.log(response);
-        const drinks = response.data.drinks;
-        console.log(drinks);
-        setIsLoading(false);
-        if (!drinks) {
-          console.log(`drinks is null`);
-          setShowErrorMsg(true);
-          return;
-        }
-        setCurrDrinks(drinks);
-      });
+      response
+        .then((response) => {
+          console.log(response);
+          const drinks = response.data.drinks;
+          console.log(drinks);
+          setIsLoading(false);
+          if (!drinks) {
+            console.log(`drinks is null`);
+            setErrorMsg({
+              errorMsg: `Can't find cocktails for letter "${submittedQuery}"`,
+              showErrorMsg: true,
+            });
+            return;
+          }
+          setCurrDrinks(drinks);
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+          setErrorMsg({
+            errorMsg: `Network Error: No Internet Connection`,
+            showErrorMsg: true,
+          });
+        });
     }
   }, [submittedQuery]);
 
@@ -68,9 +89,15 @@ function MainPage() {
     console.log(`clicked ${letter}`);
     setCurrLetter(letter);
     if (currDrinks.length === 0 && currLetter === letter) {
-      setShowErrorMsg(true);
+      setErrorMsg({
+        errorMsg: `Can't find cocktails for letter "${letter}"`,
+        showErrorMsg: true,
+      });
       const timer = setTimeout(() => {
-        setShowErrorMsg(false);
+        setErrorMsg({
+          errorMsg: "",
+          showErrorMsg: false,
+        });
         clearTimeout(timer);
       }, 5 * 1000);
     } else if (currLetter !== letter) {
@@ -115,11 +142,11 @@ function MainPage() {
           <CocktailsList drinks={currDrinks} />
         )}
 
-        {showErrorMsg && (
+        {errorMsg.showErrorMsg && (
           <ErrorAlert
-            letter={currLetter}
-            showErrorMsg={showErrorMsg}
-            setShowErrorMsg={setShowErrorMsg}
+            errorMsg={errorMsg.errorMsg}
+            showErrorMsg={errorMsg.showErrorMsg}
+            setErrorMsg={setErrorMsg}
           />
         )}
       </Container>
@@ -134,7 +161,6 @@ async function getCocktail(endPoint) {
     return response;
   } catch (error) {
     console.error(error);
-    return null;
   }
 }
 
