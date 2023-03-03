@@ -106,14 +106,19 @@ function MainPage() {
   };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        fontSize: 10 + "px",
+        display: "flex",
+        flexDirection: "column",
+        gap: 1 + "em",
+      }}
+    >
       <ButtonAppBar />
       <Container
         sx={{
-          fontSize: 10 + "px",
           display: "flex",
           flexDirection: "column",
-          gap: 5 + "em",
         }}
       >
         <Container
