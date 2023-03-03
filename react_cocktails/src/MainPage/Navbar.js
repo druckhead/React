@@ -3,11 +3,12 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { height } from "@mui/system";
 
 export default function ButtonAppBar() {
   return (
-    <Box sx={{ flexGrow: 1, position: "sticky", top: 0 }}>
-      <AppBar position="static">
+    <Box sx={{ position: "sticky", top: 0 }}>
+      <AppBar position="static" sx={{ height: 100 + "%" }}>
         <Toolbar>
           <Typography
             variant="h6"
