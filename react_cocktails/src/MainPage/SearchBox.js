@@ -5,18 +5,29 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 
 export default function CustomizedInputBase(props) {
-  const { query, setQuery, setSubmittedQuery } = props;
+  const { query, setQuery, setSubmittedQuery, errorMsg, setErrorMsg } = props;
 
   return (
     <Paper
       component="form"
       onSubmit={(e) => {
         e.preventDefault();
+        if (errorMsg.showErrorMsg) {
+          setErrorMsg({
+            errorMsg: "",
+            showErrorMsg: false,
+          });
+        }
         const queryBar = document.getElementById("inputQuery");
         setSubmittedQuery(queryBar.value);
         console.log("submitted " + queryBar.value);
       }}
-      sx={{ p: "2px 4px", display: "flex", alignItems: "center", width: 100 + "%" }}
+      sx={{
+        p: "2px 4px",
+        display: "flex",
+        alignItems: "center",
+        width: 100 + "%",
+      }}
     >
       <InputBase
         id="inputQuery"
@@ -40,6 +51,12 @@ export default function CustomizedInputBase(props) {
         aria-label="search"
         onClick={(e) => {
           e.preventDefault();
+          if (errorMsg.showErrorMsg) {
+            setErrorMsg({
+              errorMsg: "",
+              showErrorMsg: false,
+            });
+          }
           const queryBar = document.getElementById("inputQuery");
           console.log(queryBar.value);
           setSubmittedQuery(queryBar.value);

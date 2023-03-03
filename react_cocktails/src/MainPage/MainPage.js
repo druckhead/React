@@ -86,6 +86,12 @@ function MainPage() {
 
   const handleClickLetter = (letter) => {
     console.log(`clicked ${letter}`);
+    if (errorMsg.showErrorMsg) {
+      setErrorMsg({
+        errorMsg: "",
+        showErrorMsg: false,
+      });
+    }
     setCurrLetter(letter);
     if (currDrinks.length === 0 && currLetter === letter) {
       setErrorMsg({
@@ -133,6 +139,8 @@ function MainPage() {
             query={query}
             setQuery={setQuery}
             setSubmittedQuery={setSubmittedQuery}
+            errorMsg={errorMsg}
+            setErrorMsg={setErrorMsg}
           />
           <AlphabetFilterBox
             clickHandler={handleClickLetter}
