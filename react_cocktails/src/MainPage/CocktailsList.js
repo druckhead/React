@@ -39,7 +39,7 @@ export default function CocktailsList(props) {
       sx={{
         width: "100%",
         height: 400,
-        maxWidth: 360,
+        maxWidth: 100 + "%",
         bgcolor: "background.paper",
         border: "1px solid lightgray",
         boxShadow: 5,
@@ -47,7 +47,7 @@ export default function CocktailsList(props) {
     >
       <FixedSizeList
         height={400}
-        width={360}
+        width={100 + "%"}
         itemSize={46}
         itemCount={drinks.length}
         itemData={data}
