@@ -10,7 +10,7 @@ function AlphabetFilterBox(props) {
         display: "flex",
         flexDirection: "column",
         justifyItems: "center",
-        alignItems: "center"
+        alignItems: "center",
       }}
     >
       <Typography paragraph={true} variant="body1">
@@ -35,7 +35,11 @@ function AlphabetList(props) {
       isActive={props.isActive}
     />
   ));
-  return <Grid container justifyContent="space-evenly" item xs={10}>{letters}</Grid>;
+  return (
+    <Grid container justifyContent="center" gap={.25 + "em"} item xs={12}>
+      {letters}
+    </Grid>
+  );
 }
 
 function AlphaLetter(props) {
