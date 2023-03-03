@@ -106,49 +106,51 @@ function MainPage() {
   };
 
   return (
-    <Box
-      sx={{
-        fontSize: 10 + "px",
-        display: "flex",
-        flexDirection: "column",
-        gap: 5 + "em",
-      }}
-    >
+    <Box>
       <ButtonAppBar />
       <Container
         sx={{
+          fontSize: 10 + "px",
           display: "flex",
           flexDirection: "column",
-          justifyItems: "center",
-          alignItems: "center",
-          fontSize: 2.4 + "em",
-          rowGap: 1 + "em",
+          gap: 5 + "em",
         }}
       >
-        <SearchBox
-          value={query}
-          query={query}
-          setQuery={setQuery}
-          setSubmittedQuery={setSubmittedQuery}
-        />
-        <AlphabetFilterBox
-          clickHandler={handleClickLetter}
-          isActive={currLetter}
-        />
-
-        {isLoading && <CircularIndeterminate />}
-
-        {!isLoading && currDrinks && currDrinks.length > 0 && (
-          <CocktailsList drinks={currDrinks} />
-        )}
-
-        {errorMsg.showErrorMsg && (
-          <ErrorAlert
-            errorMsg={errorMsg.errorMsg}
-            showErrorMsg={errorMsg.showErrorMsg}
-            setErrorMsg={setErrorMsg}
+        <Container
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyItems: "center",
+            alignItems: "center",
+            fontSize: 2.4 + "em",
+            rowGap: 1 + "em",
+          }}
+        >
+          <SearchBox
+            value={query}
+            query={query}
+            setQuery={setQuery}
+            setSubmittedQuery={setSubmittedQuery}
           />
-        )}
+          <AlphabetFilterBox
+            clickHandler={handleClickLetter}
+            isActive={currLetter}
+          />
+
+          {isLoading && <CircularIndeterminate />}
+
+          {!isLoading && currDrinks && currDrinks.length > 0 && (
+            <CocktailsList drinks={currDrinks} />
+          )}
+
+          {errorMsg.showErrorMsg && (
+            <ErrorAlert
+              errorMsg={errorMsg.errorMsg}
+              showErrorMsg={errorMsg.showErrorMsg}
+              setErrorMsg={setErrorMsg}
+            />
+          )}
+        </Container>
       </Container>
     </Box>
   );
