@@ -1,10 +1,21 @@
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import React from "react";
 
 function AlphabetFilterBox(props) {
   return (
-    <Box>
-      <p>Or select by first letter:</p>
+    <Box
+      sx={{
+        fontSize: 1.6 + "em",
+        width: 100 + "%",
+        display: "flex",
+        flexDirection: "column",
+        justifyItems: "center",
+        alignItems: "center"
+      }}
+    >
+      <Typography paragraph={true} variant="body1">
+        Or select by first letter:
+      </Typography>
       <AlphabetList
         clickHandler={props.clickHandler}
         isActive={props.isActive}
@@ -24,7 +35,7 @@ function AlphabetList(props) {
       isActive={props.isActive}
     />
   ));
-  return <Grid>{letters}</Grid>;
+  return <Grid container justifyContent="space-evenly" item xs={10}>{letters}</Grid>;
 }
 
 function AlphaLetter(props) {
