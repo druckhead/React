@@ -16,7 +16,7 @@ export default function CustomizedInputBase(props) {
         setSubmittedQuery(queryBar.value);
         console.log("submitted " + queryBar.value);
       }}
-      sx={{ p: "2px 4px", display: "flex", alignItems: "center", width: 400 }}
+      sx={{ p: "2px 4px", display: "flex", alignItems: "center", width: 100 + "%" }}
     >
       <InputBase
         id="inputQuery"
