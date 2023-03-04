@@ -8,6 +8,8 @@ import { FixedSizeList } from "react-window";
 function renderRow(props) {
   const { index, data, style } = props;
 
+  const drinkName = data.drinks.map((drink) => drink.strDrink);
+
   return (
     <ListItem
       style={style}
@@ -24,16 +26,19 @@ function renderRow(props) {
         sx={{
           textAlign: "center",
         }}
+        onClick={() => {
+          console.log(`clicked ${drinkName[index]}`);
+          data.setSelectedDrink(data.drinks[index]);
+        }}
       >
-        <ListItemText primary={`${index + 1}. ${data[index]}`} />
+        <ListItemText primary={`${index + 1}. ${drinkName[index]}`} />
       </ListItemButton>
     </ListItem>
   );
 }
 
 export default function CocktailsList(props) {
-  const drinks = props.drinks;
-  const data = drinks.map((drink) => drink.strDrink);
+  const data = props.data;
   return (
     <Box
       sx={{
@@ -49,7 +54,7 @@ export default function CocktailsList(props) {
         height={400}
         width={100 + "%"}
         itemSize={46}
-        itemCount={drinks.length}
+        itemCount={data.drinks.length}
         itemData={data}
         overscanCount={5}
       >

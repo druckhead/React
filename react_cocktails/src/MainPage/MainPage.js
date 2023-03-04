@@ -7,6 +7,7 @@ import SearchBox from "./SearchBox";
 import axios from "axios";
 import CircularIndeterminate from "./CircularIndeterminate";
 import ErrorAlert from "./ErrorMessage";
+import CoctailItem from "./CockTailItem/CoctailItem";
 
 function MainPage() {
   const [currLetter, setCurrLetter] = useState(null);
@@ -18,9 +19,11 @@ function MainPage() {
   });
   const [query, setQuery] = useState("");
   const [submittedQuery, setSubmittedQuery] = useState("");
+  const [selectedDrink, setSelectedDrink] = useState(null);
 
   useEffect(() => {
     if (currLetter) {
+      setSelectedDrink(null);
       setIsLoading(true);
       const endPoint = `search.php?f=${currLetter}`;
       const response = getCocktail(endPoint);
@@ -53,6 +56,7 @@ function MainPage() {
 
   useEffect(() => {
     if (submittedQuery) {
+      setSelectedDrink(null);
       setIsLoading(true);
       setCurrLetter(null);
       const endPoint = `search.php?s=${submittedQuery}`;
@@ -150,7 +154,9 @@ function MainPage() {
           {isLoading && <CircularIndeterminate />}
 
           {!isLoading && currDrinks && currDrinks.length > 0 && (
-            <CocktailsList drinks={currDrinks} />
+            <CocktailsList
+              data={{ drinks: currDrinks, setSelectedDrink: setSelectedDrink }}
+            />
           )}
 
           {errorMsg.showErrorMsg && (
@@ -160,6 +166,8 @@ function MainPage() {
               setErrorMsg={setErrorMsg}
             />
           )}
+
+          {selectedDrink && <CoctailItem selectedDrink={selectedDrink} />}
         </Container>
       </Container>
     </Box>
