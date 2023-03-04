@@ -18,14 +18,16 @@ export default function CoctailItem(props) {
   const instructionsArr = instructionsStr.split(". ");
   const instructions = instructionsArr.map((item) => <li>{item}</li>);
   return (
-    <Container sx={{ boxShadow: 10, mb: 2 + "em", py: 2 + "em" }}>
+    <Container
+      sx={{ boxShadow: 10, mb: 2 + "em", py: 2 + "em", fontSize: 1.6 + "em" }}
+    >
       <Box>
-        <h5>Ingredients</h5>
+        <h4 style={{fontSize: 1.2 + "em"}}>Ingredients</h4>
         <Ingredients ingredients={ingredients} />
       </Box>
       <hr />
       <Box>
-        <h5>Instructions</h5>
+        <h4 style={{fontSize: 1.2 + "em"}}>Instructions</h4>
         <Instructions instructions={instructions} />
       </Box>
     </Container>
