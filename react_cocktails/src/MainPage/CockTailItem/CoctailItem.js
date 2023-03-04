@@ -12,7 +12,7 @@ export default function CoctailItem(props) {
     const elem = element.toLowerCase();
     if (elem.includes("ingredient") && selectedDrink[element]) {
       ingredients.push(
-        <li key={element} style={{ marginBottom: 0.5 + "em" }}>
+        <li key={element} style={{ marginBottom: 0.75 + "em" }}>
           {selectedDrink[element]}
         </li>
       );
@@ -21,7 +21,7 @@ export default function CoctailItem(props) {
   const instructionsStr = selectedDrink["strInstructions"];
   const instructionsArr = instructionsStr.split(". ");
   const instructions = instructionsArr.map((item) => (
-    <li style={{ marginBottom: 0.5 + "em" }}>{item}</li>
+    <li style={{ marginBottom: 0.75 + "em" }}>{item}</li>
   ));
   return (
     <Container
