@@ -1,3 +1,4 @@
+import { Container } from "@mui/material";
 import Box from "@mui/system/Box";
 import React from "react";
 import Ingredients from "./Ingredients";
@@ -13,17 +14,20 @@ export default function CoctailItem(props) {
       ingredients.push(<li key={element}>{selectedDrink[element]}</li>);
     }
   });
-  const instructions = selectedDrink["strInstructions"];
+  const instructionsStr = selectedDrink["strInstructions"];
+  const instructionsArr = instructionsStr.split(". ");
+  const instructions = instructionsArr.map((item) => <li>{item}</li>);
   return (
-    <Box>
+    <Container sx={{ boxShadow: 10, mb: 2 + "em", py: 2 + "em" }}>
       <Box>
         <h5>Ingredients</h5>
         <Ingredients ingredients={ingredients} />
       </Box>
+      <hr />
       <Box>
         <h5>Instructions</h5>
         <Instructions instructions={instructions} />
       </Box>
-    </Box>
+    </Container>
   );
 }
