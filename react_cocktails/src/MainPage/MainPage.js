@@ -59,7 +59,10 @@ function MainPage() {
       setSelectedDrink(null);
       setIsLoading(true);
       setCurrLetter(null);
-      const endPoint = `search.php?s=${submittedQuery}`;
+      let endPoint;
+      if (submittedQuery.length > 1) {
+        endPoint = `search.php?s=${submittedQuery}`;
+      } else {endPoint = `search.php?f=${submittedQuery}`;}
       const response = getCocktail(endPoint);
       response
         .then((response) => {
