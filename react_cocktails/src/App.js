@@ -1,7 +1,7 @@
 import { Box } from "@mui/system";
 import "./App.css";
-import MainPage from "./MainPage/MainPage";
-import ButtonAppBar from "./MainPage/Navbar";
+import MainPage from "./components/MainPage/MainPage";
+import ButtonAppBar from "./components/MainPage/Navbar";
 
 function App() {
   return (

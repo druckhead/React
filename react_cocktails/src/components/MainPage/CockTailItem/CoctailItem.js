@@ -21,7 +21,7 @@ export default function CoctailItem(props) {
   const instructionsStr = selectedDrink["strInstructions"];
   const instructionsArr = instructionsStr.split(". ");
   const instructions = instructionsArr.map((item) => (
-    <li style={{ marginBottom: 0.75 + "em" }}>{item}</li>
+    <li key={item} style={{ marginBottom: 0.75 + "em" }}>{item}</li>
   ));
   return (
     <Container

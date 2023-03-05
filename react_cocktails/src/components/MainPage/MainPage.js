@@ -1,12 +1,12 @@
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import React, { useEffect, useState } from "react";
-import AlphabetFilterBox from "./AlphabetFilterBox";
-import CocktailsList from "./CocktailsList";
-import SearchBox from "./SearchBox";
+import AlphabetFilterBox from "./AlphabetFilterBox/AlphabetFilterBox";
+import CocktailsList from "./CocktailsList/CocktailsList";
+import SearchBox from "./SearchBox/SearchBox";
 import axios from "axios";
-import CircularIndeterminate from "./CircularIndeterminate";
-import ErrorAlert from "./ErrorMessage";
+import CircularIndeterminate from "./CircularIndeterminate/CircularIndeterminate";
+import ErrorAlert from "./ErrorMessages/ErrorMessage";
 import CoctailItem from "./CockTailItem/CoctailItem";
 
 function MainPage() {
