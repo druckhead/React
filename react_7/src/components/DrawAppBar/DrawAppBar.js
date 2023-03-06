@@ -1,5 +1,4 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -18,7 +17,8 @@ import { Link, NavLink } from "react-router-dom";
 
 const drawerWidth = 240;
 const navItems = [
-  { name: "Jokes", url: "/" },
+
+  { name: "Jokes", url: "/jokes" },
   { name: "About", url: "about/" },
   { name: "Countries", url: "countries/" },
 ];
@@ -50,9 +50,11 @@ function DrawerAppBar(props) {
       <List>
         {navItems.map((item) => (
           <ListItem key={item.name} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item.name} />
-            </ListItemButton>
+            <NavLink to={item.url}>
+              <ListItemButton sx={{ textAlign: "center" }}>
+                <ListItemText primary={item.name} />
+              </ListItemButton>
+            </NavLink>
           </ListItem>
         ))}
       </List>

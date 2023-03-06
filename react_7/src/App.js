@@ -7,20 +7,21 @@ import Countries from "./components/Countries/Countries";
 import CountryDetails from "./components/CountryDetails/CountryDetails";
 import About from "./components/About/About";
 import NotFound from "./components/NotFound/NotFound";
+import { Box } from "@mui/material";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="jokes/" element={<Jokes />} />
-        <Route path="countries/" element={<Countries />}>
-          <Route path=":country_name/" element={<CountryDetails />} />
+    <Box>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="jokes/" element={<Jokes />} />
+          <Route path="countries/" element={<Countries />} />
+          <Route path="countries/:countryId" element={<CountryDetails />} />
+          <Route path="about/" element={<About />} />
         </Route>
-        <Route path="about/" element={<About />} />
-        <Route path="*/" element={<NotFound />} />
-      </Route>
-    </Routes>
+      </Routes>
+    </Box>
   );
 }
 
