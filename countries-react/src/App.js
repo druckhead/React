@@ -7,9 +7,11 @@ import CountryDetails from "./Countries/CountryDetails";
 import CountdownPage from "./Countdown/CountdownPage";
 import { useEffect, useState } from "react";
 import IP from "./IP/IP";
+import { ColorContext } from "./ColorContext";
 
 function App() {
   const [timeLeft, setTimeLeft] = useState(0);
+  const [color, setColor] = useState({});
 
   useEffect(() => {
     if (timeLeft === 0) {
@@ -28,26 +30,28 @@ function App() {
   }, [timeLeft]);
 
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="countries/" element={<CountriesPage />}>
-          <Route path=":countryId/" element={<CountryDetails />} />
+    <ColorContext.Provider value={color}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home setColor={setColor} />} />
+          <Route path="countries/" element={<CountriesPage />}>
+            <Route path=":countryId/" element={<CountryDetails />} />
+          </Route>
+          <Route
+            path="countdown/"
+            element={
+              <CountdownPage
+                timeLeft={timeLeft}
+                onSecondsSubmitted={seconds => {
+                  setTimeLeft(seconds);
+                }}
+              />
+            }
+          />
+          <Route path="ip" element={<IP />} />
         </Route>
-        <Route
-          path="countdown/"
-          element={
-            <CountdownPage
-              timeLeft={timeLeft}
-              onSecondsSubmitted={seconds => {
-                setTimeLeft(seconds);
-              }}
-            />
-          }
-        />
-        <Route path="ip" element={<IP />} />
-      </Route>
-    </Routes>
+      </Routes>
+    </ColorContext.Provider>
   );
 }
 

@@ -1,8 +1,7 @@
-export default function Countdown({ timeLeft }) {
-  //follow-up questions
-  // 1. why can't we set empty dependencies list? []
-  // 2. We want timer to continue counting if we navigate inside the app! how to achieve this?
-  //
+import { useContext } from "react";
+import { ColorContext } from "../ColorContext";
 
-  return <div>{timeLeft}s</div>;
+export default function Countdown({ timeLeft }) {
+  const color = useContext(ColorContext);
+  return <div style={{ color: color.hex }}>{timeLeft}s</div>;
 }
