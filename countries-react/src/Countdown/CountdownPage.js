@@ -1,21 +1,15 @@
 import { Box } from "@mui/system";
+import { useState } from "react";
 import Countdown from "./Countdown";
 
-export default function CountdownPage({
-  secondsInput,
-  setSecondsInput,
-  countdownStarted,
-  setCountdownStarted,
-  timeLeft,
-  setTimeLeft,
-}) {
+export default function CountdownPage({ onSecondsSubmitted, timeLeft }) {
+  const [secondsInput, setSecondsInput] = useState("");
   return (
     <Box>
       <form
         onSubmit={event => {
           event.preventDefault();
-          setCountdownStarted(true);
-          setTimeLeft(secondsInput);
+          onSecondsSubmitted(secondsInput);
         }}
       >
         <input
@@ -23,14 +17,14 @@ export default function CountdownPage({
           placeholder="Insert seconds"
           value={secondsInput}
           onChange={event => setSecondsInput(event.target.value)}
-          disabled={countdownStarted}
+          disabled={timeLeft > 0}
         />
-        <button type="submit" disabled={countdownStarted}>
+        <button type="submit" disabled={timeLeft > 0}>
           Start countdown
         </button>
       </form>
 
-      {countdownStarted && <Countdown timeLeft={timeLeft} />}
+      {timeLeft > 0 && <Countdown timeLeft={timeLeft} />}
     </Box>
   );
 }

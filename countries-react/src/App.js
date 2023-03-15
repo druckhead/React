@@ -8,16 +8,13 @@ import CountdownPage from "./Countdown/CountdownPage";
 import { useEffect, useState } from "react";
 
 function App() {
-  const [secondsInput, setSecondsInput] = useState("");
-  const [countdownStarted, setCountdownStarted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(0);
 
   useEffect(() => {
-    console.log("calling useEffect", timeLeft);
     if (timeLeft === 0) {
-      setCountdownStarted(false);
       return;
     }
+    console.log("setting timer", timeLeft);
     const timerId = setTimeout(() => {
       setTimeLeft(t => t - 1);
     }, 1000);
@@ -40,12 +37,10 @@ function App() {
           path="countdown/"
           element={
             <CountdownPage
-              secondsInput={secondsInput}
-              setSecondsInput={setSecondsInput}
-              countdownStarted={countdownStarted}
-              setCountdownStarted={setCountdownStarted}
               timeLeft={timeLeft}
-              setTimeLeft={setTimeLeft}
+              onSecondsSubmitted={seconds => {
+                setTimeLeft(seconds);
+              }}
             />
           }
         />
