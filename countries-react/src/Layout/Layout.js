@@ -1,117 +1,121 @@
 import { AppBar, MenuItem, Toolbar } from "@mui/material";
 import { Box } from "@mui/system";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
-import './Layout.css'
+import "./Layout.css";
 
 export default function Layout() {
+  const currLocation = useLocation();
+  console.log("Layout:", currLocation);
 
-    const currLocation = useLocation()
-    console.log('Layout:', currLocation)
+  let activeStyle = {
+    textDecoration: "underline",
+  };
 
-    let activeStyle = {
-        textDecoration: "underline",
-      };
-    
+  return (
+    <Box>
+      <AppBar position="static">
+        <Toolbar variant="dense">
+          <MenuItem>
+            <NavLink
+              to="/"
+              className="nav-link"
+              style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            >
+              Home
+            </NavLink>
+          </MenuItem>
+          <MenuItem>
+            <NavLink
+              to="countries/"
+              className="nav-link"
+              style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            >
+              Countries
+            </NavLink>
+          </MenuItem>
 
-    return(
-        <Box>
-            <AppBar position="static">
-                <Toolbar variant="dense">
-                <MenuItem>
-                    <NavLink to='/' className='nav-link'
-                        style={({ isActive }) =>
-                                        isActive ? activeStyle : undefined
-                                      }
-                    >
-                        Home
-                    </NavLink>
-                </MenuItem>
-                <MenuItem>
-                    <NavLink to='countries/'
-                            className='nav-link'
-                            style={({ isActive }) =>
-                                        isActive ? activeStyle : undefined
-                                      }>
-                        Countries
-                    </NavLink>
-                </MenuItem>
+          <MenuItem>
+            <NavLink
+              to="countdown/"
+              className="nav-link"
+              style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            >
+              Countdown
+            </NavLink>
+          </MenuItem>
+          <MenuItem>
+            <NavLink
+              to="ip"
+              className="nav-link"
+              style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            >
+              IP
+            </NavLink>
+          </MenuItem>
+        </Toolbar>
+      </AppBar>
 
-                <MenuItem>
-                    <NavLink to='countdown/'
-                            className='nav-link'
-                            style={({ isActive }) =>
-                                        isActive ? activeStyle : undefined
-                                      }>
-                        Countdown
-                    </NavLink>
-                </MenuItem>
-                </Toolbar>
-            </AppBar>
+      <Outlet />
+    </Box>
+  );
 
-            <Outlet />
-        </Box>
-    )
+  // function HeaderMenuItem(props) {
+  //     const location = useLocation()
 
+  //     console.log(props)
+  //     console.log('location',location)
 
-    // function HeaderMenuItem(props) {
-    //     const location = useLocation()
+  //     let activeStyle = {
+  //         textDecoration: "underline",
+  //       };
 
-    //     console.log(props)
-    //     console.log('location',location)
+  //     let currClass = 'nav-link '
+  //     if (location.pathname.includes(props.name)) {
+  //         currClass += 'active-nav-link'
+  //     }
 
-    //     let activeStyle = {
-    //         textDecoration: "underline",
-    //       };
+  //     console.log('setting class',props.name, currClass)
 
-    //     let currClass = 'nav-link '
-    //     if (location.pathname.includes(props.name)) {
-    //         currClass += 'active-nav-link'
-    //     }
+  //     return (
+  //         <MenuItem>
+  //         <NavLink to='/' className={currClass}>
+  //             {props.children}
+  //         </NavLink>
+  //     </MenuItem>
+  //     )
+  // }
 
-    //     console.log('setting class',props.name, currClass)
+  // return(
+  //     <Box>
+  //         <AppBar position="static">
+  //             <Toolbar variant="dense">
+  //             {/* <MenuItem>
+  //                 <NavLink to='/' className='nav-link'
+  //                 style={({ isActive }) =>
+  //                 isActive ? activeStyle : undefined
+  //               }>
+  //                     Home
+  //                 </NavLink>
+  //             </MenuItem> */}
+  //             <HeaderMenuItem name='home'>
+  //                 Home
+  //             </HeaderMenuItem>
+  //             <HeaderMenuItem name='countries'>
+  //                 Countries
+  //             </HeaderMenuItem>
+  //             {/* <MenuItem>
+  //                 <NavLink to='countries/'
+  //                         className='nav-link'
+  //                         style={({ isActive }) =>
+  //                 isActive ? activeStyle : undefined
+  //               }>
+  //                     Countries
+  //                 </NavLink>
+  //             </MenuItem> */}
+  //             </Toolbar>
+  //         </AppBar>
 
-
-    //     return (
-    //         <MenuItem>
-    //         <NavLink to='/' className={currClass}>
-    //             {props.children}
-    //         </NavLink>
-    //     </MenuItem>
-    //     )
-    // }
-
-    // return(
-    //     <Box>
-    //         <AppBar position="static">
-    //             <Toolbar variant="dense">
-    //             {/* <MenuItem>
-    //                 <NavLink to='/' className='nav-link'
-    //                 style={({ isActive }) =>
-    //                 isActive ? activeStyle : undefined
-    //               }>
-    //                     Home
-    //                 </NavLink>
-    //             </MenuItem> */}
-    //             <HeaderMenuItem name='home'>
-    //                 Home
-    //             </HeaderMenuItem>
-    //             <HeaderMenuItem name='countries'>
-    //                 Countries
-    //             </HeaderMenuItem>
-    //             {/* <MenuItem>
-    //                 <NavLink to='countries/'
-    //                         className='nav-link'
-    //                         style={({ isActive }) =>
-    //                 isActive ? activeStyle : undefined
-    //               }>
-    //                     Countries
-    //                 </NavLink>
-    //             </MenuItem> */}
-    //             </Toolbar>
-    //         </AppBar>
-
-    //         <Outlet />
-    //     </Box>
-    // )
-    
+  //         <Outlet />
+  //     </Box>
+  // )
 }

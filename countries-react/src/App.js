@@ -6,6 +6,7 @@ import CountriesPage from "./Countries/CountriesPage";
 import CountryDetails from "./Countries/CountryDetails";
 import CountdownPage from "./Countdown/CountdownPage";
 import { useEffect, useState } from "react";
+import IP from "./IP/IP";
 
 function App() {
   const [timeLeft, setTimeLeft] = useState(0);
@@ -44,6 +45,7 @@ function App() {
             />
           }
         />
+        <Route path="ip" element={<IP />} />
       </Route>
     </Routes>
   );
