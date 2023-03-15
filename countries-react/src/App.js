@@ -5,11 +5,30 @@ import Home from "./Home/Home";
 import CountriesPage from "./Countries/CountriesPage";
 import CountryDetails from "./Countries/CountryDetails";
 import CountdownPage from "./Countdown/CountdownPage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [secondsInput, setSecondsInput] = useState("");
   const [countdownStarted, setCountdownStarted] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(0);
+
+  useEffect(() => {
+    console.log("calling useEffect", timeLeft);
+    if (timeLeft === 0) {
+      setCountdownStarted(false);
+      return;
+    }
+    const timerId = setTimeout(() => {
+      setTimeLeft(t => t - 1);
+    }, 1000);
+
+    // we have to provide clean-up function to stop interval/timer!
+    return () => {
+      console.log("calling clearTimeout for timerId", timerId);
+      clearTimeout(timerId);
+    };
+  }, [timeLeft]);
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -25,6 +44,8 @@ function App() {
               setSecondsInput={setSecondsInput}
               countdownStarted={countdownStarted}
               setCountdownStarted={setCountdownStarted}
+              timeLeft={timeLeft}
+              setTimeLeft={setTimeLeft}
             />
           }
         />

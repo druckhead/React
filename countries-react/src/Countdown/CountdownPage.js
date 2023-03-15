@@ -6,6 +6,8 @@ export default function CountdownPage({
   setSecondsInput,
   countdownStarted,
   setCountdownStarted,
+  timeLeft,
+  setTimeLeft,
 }) {
   return (
     <Box>
@@ -13,6 +15,7 @@ export default function CountdownPage({
         onSubmit={event => {
           event.preventDefault();
           setCountdownStarted(true);
+          setTimeLeft(secondsInput);
         }}
       >
         <input
@@ -27,12 +30,7 @@ export default function CountdownPage({
         </button>
       </form>
 
-      {countdownStarted && (
-        <Countdown
-          seconds={secondsInput}
-          onCountdownFinished={() => setCountdownStarted(false)}
-        />
-      )}
+      {countdownStarted && <Countdown timeLeft={timeLeft} />}
     </Box>
   );
 }
